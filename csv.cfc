@@ -7,7 +7,7 @@ component{
 	this.quotesAroundAllFields = false;
 	this.endLineWith = CHR(13) & CHR(10);
 	
-	private string function escapeAnyDoubleQuotes(required string txtField){
+	private string function escapeAnyDoubleQuotes(required any txtField){
 		return replace(txtField, '"', '""', "all");
 	}
 	
@@ -15,12 +15,14 @@ component{
 		if (this.quotesAroundAllFields == true)
 			return true;
 		
-		if ( ( Find( ",", txtField ) > 0 ) || ( Find( '"', txtField ) > 0 ) )
+		if ( ( Find( ",", txtField ) > 0 ) || ( Find( '"', txtField ) > 0 ) ){
 			return true;
-		elseif ( ( Find( CHR(13), txtField ) > 0 ) || ( Find( CHR(10), txtField ) > 0 ) )
+			}
+		else if ( ( Find( CHR(13), txtField ) > 0 ) || ( Find( CHR(10), txtField ) > 0 ) ){
 			return true;
-		else
-			return false;
+			}
+			
+		return false;
 	}
 	
 	private string function wrapFieldInQuotes(required string txtField){
@@ -38,30 +40,30 @@ component{
 		
 		for (column in qryObject.columnList){
 		
-			var nextField = this.escapeAnyDoubleQuotes( column );
+			var nextField = escapeAnyDoubleQuotes( column );
 		
-			if ( this.doesFieldNeedQuotes( nextField ) )
-				nextField = this.wrapFieldInQuotes( nextField );
+			if ( doesFieldNeedQuotes( nextField ) )
+				nextField = wrapFieldInQuotes( nextField );
 
 				ArrayAppend( nextLine, nextField );
 		}
 
-		results &= this.endLine( ArrayToList( nextLine ) );
+		results &= endLine( ArrayToList( nextLine ) );
 		
 		for (record in qryObject){
 		
 			var nextLine = []; // reset
 			
 			for (column in qryObject.columnList){
-				var nextField = this.escapeAnyDoubleQuotes( qryObject[column] );
+				var nextField = escapeAnyDoubleQuotes( qryObject[column] );
 				
-				if ( this.doesFieldNeedQuotes( nextField ) )
-					nextField = this.wrapFieldInQuotes( nextField );
+				if ( doesFieldNeedQuotes( nextField ) )
+					nextField = wrapFieldInQuotes( nextField );
 					
 				ArrayAppend( nextLine, nextField );
 			}
 			
-			results &= this.endLine( ArrayToList( nextLine ) );
+			results &= endLine( ArrayToList( nextLine ) );
 		}
 	
 		return results;
