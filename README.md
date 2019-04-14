@@ -21,3 +21,9 @@ CFML component for converting queries into comma-separated value format
   fileWrite( expandPath("./myQuery.csv"), myQueryCSV );
 </cfscript>
 ```  
+
+## Frequently Asked Questions
+
+**1.  Can't I already do this with the cfspreadsheet tag?**
+
+Lucee doesn't natively support the cfspreadsheet tag at this time. Although there is a 40+ MB plugin you can install separately for that tag to be supported, I prefer a 2 kb CFC file if all I really need is to create a .csv file.
