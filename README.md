@@ -27,3 +27,12 @@ CFML component for converting queries into comma-separated value format
 **1.  Can't I already do this with the cfspreadsheet tag?**
 
 Lucee doesn't natively support the cfspreadsheet tag at this time. Although there is a 40+ MB plugin you can install separately for that tag to be supported, I prefer a 2 kb CFC file if all I really need is to create a .csv file.
+
+**2. Carriage Returns and/or Line Feeds?**
+
+Yes. By default, this component terminates each line of the .csv formatted data with both a carriage return (CHR 13) and a line feed (CHR 10). You can change this behavior by modifying the value of the endLineWith property of the component instance you create.
+
+```ColdFusion
+  csvObj = CreateObject( "Component", "csv" );
+  csvObj.endLineWith = CHR(10); // override the default of CHR(13) & CHR(10)
+```
