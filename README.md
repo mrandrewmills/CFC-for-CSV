@@ -36,3 +36,12 @@ Yes. By default, this component terminates each line of the .csv formatted data 
   csvObj = CreateObject( "Component", "csv" );
   csvObj.endLineWith = CHR(10); // override the default of CHR(13) & CHR(10)
 ```
+
+**3. Can I force all fields to be wrapped in double quotes?**
+
+You shouldn't need to do this, but I get it. Sometimes you've got a line break within a field or something peculiar that throws off the particular CSV parser you're working with, and the only solution seems to be wrapping each and every field in double quotes as you write them to your CSV file. Here's how you can do that.
+
+```ColdFusion
+  csvObj = CreateObject( "Component", "csv" );
+  csvObj.quotesAroundAllFields = true;
+```
